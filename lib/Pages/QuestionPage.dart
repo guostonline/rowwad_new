@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quiz/Fonctions/GetXfunctions.dart';
 import 'package:quiz/Widgets/MyWidgts.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -46,16 +48,22 @@ class QuestionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          myButtonRaisen("Question 1", 1),
-          myButtonRaisen("Question 2", 2),
-          myButtonRaisen("Question 3", 3),
-          myButtonRaisen("Question 4", 4),
-        ],
+    GetXFunctions _controller = Get.put(GetXFunctions());
+    return Obx(
+      () => Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            AnimatedOpacity(
+                opacity: _controller.btn1Visible.value,
+                duration: Duration(milliseconds: 500),
+                child: myButtonRaisen("Question 1", 1)),
+            myButtonRaisen("Question 2", 2),
+            myButtonRaisen("Question 3", 3),
+            myButtonRaisen("Question 4", 4),
+          ],
+        ),
       ),
     );
   }

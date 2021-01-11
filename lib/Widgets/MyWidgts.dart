@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:quiz/Fonctions/GetXfunctions.dart';
 
 Widget myProgressBar(double value, int question, int stage) {
   return Padding(
@@ -47,20 +49,29 @@ Widget myQuestionImage(String question, String image) {
 }
 
 Widget myButtonRaisen(String text, int question) {
-  return Container(
-    height: 50,
-    // padding: EdgeInsets.symmetric(vertical: 25),
-    width: double.infinity,
-    child: RaisedButton(
-        color: Colors.blue.withOpacity(0.5),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(color: Colors.white, width: 2)),
-        child: AutoSizeText(
-          text,
-          minFontSize: 15,
-          style: TextStyle(color: Colors.white),
-        ),
-        onPressed: () => print(text)),
+  GetXFunctions _controller = Get.put(GetXFunctions());
+  return Obx(
+    () => AnimatedOpacity(
+      opacity: _controller.buttonsCheker(question).value,
+      duration: Duration(milliseconds: 1000),
+      child: Container(
+        height: 50,
+        // padding: EdgeInsets.symmetric(vertical: 25),
+        width: double.infinity,
+        child: RaisedButton(
+            color: Colors.blue.withOpacity(0.5),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side: BorderSide(color: Colors.white, width: 2)),
+            child: AutoSizeText(
+              text,
+              minFontSize: 15,
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              _controller.buttonsVisibility(question);
+            }),
+      ),
+    ),
   );
 }
