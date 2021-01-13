@@ -1,8 +1,10 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 Widget myProgressBar(double value, int question, int stage) {
   return Padding(
@@ -48,6 +50,35 @@ Widget myQuestionImage(String question, String image) {
   );
 }
 
+Widget myQuestionText(String question) {
+  return Stack(
+    children: <Widget>[
+      Container(
+        color: Colors.transparent,
+        child: Image.asset("images/tv2.jpg"),
+      ),
+      Center(
+        child: Container(
+          width: 240,
+          height: 180,
+          margin: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 100),
+          child: Center(
+            child: Text(question,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+                style: TextStyle(
+                    fontFamily: "Cairo",
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+                textDirection: TextDirection.rtl),
+          ),
+        ),
+      )
+    ],
+  );
+}
+
 Widget myButtonRaisen(String text, int question) {
   GetXFunctions _controller = Get.put(GetXFunctions());
   return Obx(
@@ -65,13 +96,64 @@ Widget myButtonRaisen(String text, int question) {
                 side: BorderSide(color: Colors.white, width: 2)),
             child: AutoSizeText(
               text,
-              minFontSize: 15,
-              style: TextStyle(color: Colors.white),
+              minFontSize: 18,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
               _controller.buttonsVisibility(question);
             }),
       ),
     ),
+  );
+}
+
+Widget myAudioQuestion(String question, String audio, bool playMp3) {
+  AudioPlayer audioPlayer = AudioPlayer();
+  AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
+  audioCache.play(audio);
+  return Stack(
+    children: <Widget>[
+      Container(
+        child: Image.asset("images/k7.gif"),
+      ),
+      Positioned(
+        top: 25,
+        left: 10,
+        right: 10,
+        child: Container(
+          child: Center(
+              child: Text(
+            question,
+            style: TextStyle(fontSize: 25, color: Colors.black),
+            textAlign: TextAlign.center,
+          )),
+        ),
+      ),
+      Align(
+        alignment: Alignment(0.75, -0.2),
+        child: IconButton(
+          onPressed: () {},
+          color: Colors.transparent,
+          icon: Icon(
+            Icons.replay,
+            size: 40,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment(-0.75, -0.2),
+        child: IconButton(
+          onPressed: () {},
+          color: Colors.transparent,
+          icon: Icon(
+            Icons.play_arrow,
+            size: 40,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    ],
   );
 }
