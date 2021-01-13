@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:quiz/Pages/QuestionPage.dart';
 
