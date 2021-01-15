@@ -30,10 +30,9 @@ dependencies:
   google_fonts_arabic: ^1.1.7
   liquid_progress_indicator: ^0.3.2
   audioplayers: ^0.13.2
-<<<<<<< HEAD
   giffy_dialog: any
-=======
->>>>>>> origin/main
+
+
 
 
 dev_dependencies:
