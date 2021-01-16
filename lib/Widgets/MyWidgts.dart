@@ -1,10 +1,10 @@
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 Widget myProgressBar({double value, int question, String stage}) {
   return Padding(
@@ -29,14 +29,13 @@ Widget myProgressBar({double value, int question, String stage}) {
   );
 }
 
-Widget myQuestionImage(String question, String image) {
+Widget myQuestionImage({String question, String image}) {
   return Container(
     width: double.infinity,
     height: 250,
     alignment: Alignment.bottomCenter,
     decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("images/$image"), fit: BoxFit.fill)),
+        image: DecorationImage(image: AssetImage("$image"), fit: BoxFit.fill)),
     child: Text(
       question,
       style: TextStyle(
@@ -50,7 +49,7 @@ Widget myQuestionImage(String question, String image) {
   );
 }
 
-Widget myQuestionText(String question) {
+Widget myQuestionText({String question}) {
   return Stack(
     children: <Widget>[
       Container(
@@ -79,37 +78,7 @@ Widget myQuestionText(String question) {
   );
 }
 
-Widget myButtonRaisen(context, String text, int question) {
-  GetXFunctions _controller = Get.put(GetXFunctions());
-  return Obx(
-    () => AnimatedOpacity(
-      opacity: _controller.buttonsCheker(question).value,
-      duration: Duration(milliseconds: 1000),
-      child: Container(
-        height: 50,
-        // padding: EdgeInsets.symmetric(vertical: 25),
-        width: double.infinity,
-        child: RaisedButton(
-            color: Colors.blue.withOpacity(0.5),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                side: BorderSide(color: Colors.white, width: 2)),
-            child: AutoSizeText(
-              text,
-              minFontSize: 18,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            onPressed: () {
-              _controller.buttonsVisibility(question);
-              _controller.checkFuction(context, question);
-            }),
-      ),
-    ),
-  );
-}
-
-Widget myAudioQuestion(String question, String audio, bool playMp3) {
+Widget myAudioQuestion({String question, String audio}) {
   AudioPlayer audioPlayer = AudioPlayer();
   AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
   audioCache.play(audio);
@@ -156,5 +125,36 @@ Widget myAudioQuestion(String question, String audio, bool playMp3) {
         ),
       ),
     ],
+  );
+}
+
+Widget myButtonRaisen({context, String text, int question}) {
+  GetXFunctions _controller = Get.put(GetXFunctions());
+  return Obx(
+    () => AnimatedOpacity(
+      opacity: _controller.buttonsCheker(question).value,
+      duration: Duration(milliseconds: 300),
+      child: Container(
+        height: 50,
+        // padding: EdgeInsets.symmetric(vertical: 25),
+        width: double.infinity,
+        child: RaisedButton(
+            color: _controller.colorButton.value,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side: BorderSide(color: Colors.white, width: 2)),
+            child: AutoSizeText(
+              text,
+              minFontSize: 18,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              _controller.buttonsVisibility(question);
+              _controller.colorButton.value = Colors.green;
+              _controller.checkFuction(context, question);
+            }),
+      ),
+    ),
   );
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:quiz/Fonctions/MyFunctions.dart';
-
 import 'package:quiz/Fonctions/GetXfunctions.dart';
-import 'package:quiz/Widgets/MyWidgts.dart';
+import 'package:quiz/Fonctions/MyFunctions.dart';
 import 'package:quiz/Models/QuestionModel.dart';
+import 'package:quiz/Widgets/MyWidgts.dart';
 
 class QuestionPage extends StatefulWidget {
   QuestionPage({Key key}) : super(key: key);
@@ -50,8 +48,8 @@ class _QuestionPageState extends State<QuestionPage> {
                   SizedBox(height: 10),
                   Expanded(
                     flex: 4,
-                    child: myQuestionText(
-                        question[_controller.questionIndex.value].question),
+                    child: selectWidget(
+                        question[_controller.questionIndex.value].type),
                   ),
                   SizedBox(height: 10),
                   Expanded(
@@ -62,25 +60,25 @@ class _QuestionPageState extends State<QuestionPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           myButtonRaisen(
-                              context,
-                              question[_controller.questionIndex.value]
+                              context: context,
+                              text: question[_controller.questionIndex.value]
                                   .reponce_1,
-                              1),
+                              question: 1),
                           myButtonRaisen(
-                              context,
-                              question[_controller.questionIndex.value]
+                              context: context,
+                              text: question[_controller.questionIndex.value]
                                   .reponce_2,
-                              2),
+                              question: 2),
                           myButtonRaisen(
-                              context,
-                              question[_controller.questionIndex.value]
+                              context: context,
+                              text: question[_controller.questionIndex.value]
                                   .reponce_3,
-                              3),
+                              question: 3),
                           myButtonRaisen(
-                              context,
-                              question[_controller.questionIndex.value]
+                              context: context,
+                              text: question[_controller.questionIndex.value]
                                   .reponce_4,
-                              4),
+                              question: 4),
                         ],
                       ),
                     ),

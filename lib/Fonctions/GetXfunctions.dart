@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,10 +9,14 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:quiz/Models/QuestionModel.dart';
 
 class GetXFunctions extends GetxController {
+  // Opacity level
   RxDouble btn1Visible = 1.0.obs;
   RxDouble btn2Visible = 1.0.obs;
   RxDouble btn3Visible = 1.0.obs;
   RxDouble btn4Visible = 1.0.obs;
+  // Colors level
+  var colorButton = Colors.blue.withOpacity(0.5).obs;
+
   RxInt questionIndex = 0.obs;
   RxInt bonReponce = 0.obs;
   RxInt totalReponce = 0.obs;
@@ -50,9 +56,6 @@ class GetXFunctions extends GetxController {
   }
 
   RxDouble buttonsCheker(int button) {
-    // Check what button is clicked
-    // RxDouble result;
-
     switch (button) {
       case 1:
         return btn1Visible;
@@ -75,40 +78,46 @@ class GetXFunctions extends GetxController {
 
   increment() => questionIndex++;
 
-  inisialise() {
+  inicialise() {
     btn1Visible.value = 1.0;
     btn2Visible.value = 1.0;
     btn3Visible.value = 1.0;
     btn4Visible.value = 1.0;
+    colorButton.value = Colors.blue.withOpacity(0.5);
   }
 
   checkFuction(context, int reponce) {
-    AudioPlayer audioPlayer = AudioPlayer();
+    AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
     AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
-    if (reponce == questions[questionIndex.value].bonReponce) {
-      showDialogue(
-        context,
-        image: questions[questionIndex.value].image,
-        title: 'رائع جواب صحيح',
-        description: questions[questionIndex.value].info,
-      );
+    Timer(Duration(seconds: 3), () {
+      if (reponce == questions[questionIndex.value].bonReponce) {
+        bonReponce++;
+        showDialogue(
+          context,
+          image: questions[questionIndex.value].image,
+          title: 'رائع جواب صحيح',
+          description: questions[questionIndex.value].info,
+        );
+        try {
+          // audioPlayer.play('winning.mp3');
+          audioCache.play('win.wav');
+        } catch (e) {
+          print(e);
+        }
+      } else
+        showDialogue(
+          context,
+          image: questions[questionIndex.value].image,
+          title: 'للاسف الجواب خاطئ',
+          description: questions[questionIndex.value].info,
+        );
       try {
-        audioCache.play('winning.mp3');
+        // audioPlayer.play('wrong.mp3');
+        audioCache.play('lost.wav');
       } catch (e) {
         print(e);
       }
-    } else
-      showDialogue(
-        context,
-        image: questions[questionIndex.value].image,
-        title: 'للاسف الحواب خاطئ',
-        description: questions[questionIndex.value].info,
-      );
-    try {
-      audioCache.play('wrong.mp3');
-    } catch (e) {
-      print(e);
-    }
+    });
   }
 
   showDialogue(context, {String image, String title, String description}) {
@@ -136,7 +145,7 @@ class GetXFunctions extends GetxController {
               ),
               onOkButtonPressed: () {
                 increment();
-                inisialise();
+                inicialise();
                 Navigator.pop(context);
               },
             ));
