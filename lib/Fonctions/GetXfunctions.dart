@@ -68,7 +68,6 @@ class GetXFunctions extends GetxController {
         return btn4Visible;
         break;
       default:
-        return null;
     }
 
     // return result;
@@ -95,16 +94,15 @@ class GetXFunctions extends GetxController {
           title: 'رائع جواب صحيح',
           description: questions[questionIndex.value].info,
         );
-      } else
+      } else {
+        playAudio('lost.wav');
         showDialogue(
           context,
           image: questions[questionIndex.value].image,
           title: 'للاسف الجواب خاطئ',
           description: questions[questionIndex.value].info,
         );
-
-      // audioPlayer.play('wrong.mp3');
-      playAudio('lost.wav');
+      }
     });
   }
 }

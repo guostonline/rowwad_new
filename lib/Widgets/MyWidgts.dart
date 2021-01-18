@@ -5,7 +5,12 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
 import "package:quiz/Fonctions/MyFunctions.dart";
 
-Widget myProgressBar({double value, int question, String stage}) {
+Widget myProgressBar(
+    {double value,
+    int question,
+    String stage,
+    int bonReponce,
+    double globale}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: LiquidLinearProgressIndicator(
@@ -22,7 +27,7 @@ Widget myProgressBar({double value, int question, String stage}) {
         child: Column(
           children: [
             Text(
-              "السؤال $question من المرحلة  $stage",
+              "الاجوبة الصحيحة $bonReponce من اصل ${question - 1}",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             Divider(
@@ -30,13 +35,28 @@ Widget myProgressBar({double value, int question, String stage}) {
               indent: 10,
               endIndent: 10,
             ),
-            Text(
-              "معدل المرحلة $question المعدل العالم  $stage",
+            AutoSizeText(
+              "معدل المرحلة $stage ${moyenOfStage(question - 1, bonReponce).toStringAsFixed(1)}/10 المعدل العالم  $globale",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ],
         ),
       ),
+    ),
+  );
+}
+
+//${moyenOfStage(question, bonReponce).toStringAsFixed(1)}/10 المعدل العالم
+Widget myCircleProgressBar(int question, String stage) {
+  return LiquidCircularProgressIndicator(
+    center: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        AutoSizeText("$question",
+            minFontSize: 22, style: TextStyle(color: Colors.white)),
+        Divider(color: Colors.white, indent: 5, endIndent: 5),
+        AutoSizeText(" $stage", style: TextStyle(color: Colors.white))
+      ],
     ),
   );
 }

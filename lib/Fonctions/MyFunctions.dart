@@ -20,7 +20,7 @@ List<QuestionModel> parseJson(String responce) {
   return parsed
       .map<QuestionModel>((json) => new QuestionModel.fromJson(json))
       .toList();
-}
+} // 'parse json from local file
 
 Widget selectWidget(String widgetName) {
   switch (widgetName) {
@@ -48,12 +48,12 @@ Widget selectWidget(String widgetName) {
     default:
       return null;
   }
-}
+} // select wath widget to show on quesionPage
 
 playAudio(String audio) {
   audioCache.clear(audio);
   audioCache.play(audio);
-}
+} // function to listen to audio
 
 showDialogue(context,
     {String image, String title, String description, bool isAnswerTrue}) {
@@ -84,4 +84,8 @@ showDialogue(context,
               Navigator.pop(context);
             },
           ));
+} // Message of answer
+
+double moyenOfStage(int question, int bonReponce) {
+  return (bonReponce.toDouble() / question.toDouble()) * 10;
 }

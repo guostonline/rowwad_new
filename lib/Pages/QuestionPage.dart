@@ -40,10 +40,26 @@ class _QuestionPageState extends State<QuestionPage> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: myProgressBar(
-                        question: _controller.questionIndex.value + 1,
-                        stage: question[_controller.questionIndex.value].stage,
-                        value: 0.5),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          flex: 4,
+                          child: myProgressBar(
+                              question: _controller.questionIndex.value + 1,
+                              stage: question[_controller.questionIndex.value]
+                                  .stage,
+                              value: 0.5,
+                              bonReponce: _controller.bonReponce.value,
+                              globale: 7.5),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: myCircleProgressBar(
+                              _controller.questionIndex.value + 1,
+                              question[_controller.questionIndex.value].stage),
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(height: 10),
                   Expanded(
