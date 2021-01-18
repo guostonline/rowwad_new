@@ -24,10 +24,10 @@ class _QuestionPageState extends State<QuestionPage> {
       future:
           DefaultAssetBundle.of(context).loadString("MyJson/Questions.json"),
       builder: (context, snapshot) {
+        if (snapshot.data == null)
+          return Center(child: CircularProgressIndicator());
         List<QuestionModel> question = parseJson(snapshot.data.toString());
-
         _controller.questions = question;
-
         return Container(
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class _QuestionPageState extends State<QuestionPage> {
               () => Column(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: myProgressBar(
                         question: _controller.questionIndex.value + 1,
                         stage: question[_controller.questionIndex.value].stage,
@@ -47,13 +47,13 @@ class _QuestionPageState extends State<QuestionPage> {
                   ),
                   SizedBox(height: 10),
                   Expanded(
-                    flex: 4,
+                    flex: 6,
                     child: selectWidget(
                         question[_controller.questionIndex.value].type),
                   ),
                   SizedBox(height: 10),
                   Expanded(
-                    flex: 6,
+                    flex: 7,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Column(

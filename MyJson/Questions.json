@@ -153,7 +153,7 @@
     "type": "question",
     "file": "images/fatima_mkdadi.jpg",
     "image": "images/fatima_mkdadi.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من في الصورة؟",
@@ -166,7 +166,7 @@
     "type": "image",
     "file": "images/mustapha_baghdad.jpg",
     "image": "images/mustapha_baghdad.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": " من هو المغني بطل فيلم دموع الندم",
@@ -179,7 +179,7 @@
     "type": "question",
     "file": "assets/a1.mp3",
     "image": "images/domou_nadam.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هي صاحبة أغنية عطشانة",
@@ -192,7 +192,7 @@
     "type": "question",
     "file": "assets/a1.mp3",
     "image": "images/bahija.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هو صاحب هاذا الصوت",
@@ -205,7 +205,7 @@
     "type": "audio",
     "file": "sa7eb_sola.mp3",
     "image": "images/ahmed_bidawi.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هو كاتب أغنية أمري لله لنعيمة سميح",
@@ -218,7 +218,7 @@
     "type": "question",
     "file": "assets/a1.mp3",
     "image": "images/ahmad_et_Tayyeb_al_Alj.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هو كاتب أغنية ماأنا إلا بشر",
@@ -231,7 +231,7 @@
     "type": "question",
     "file": "assets/a1.mp3",
     "image": "images/ahmad_et_Tayyeb_al_Alj.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هو صاحب هاذا الصوت",
@@ -244,7 +244,7 @@
     "type": "audio",
     "file": "msnawa.mp3",
     "image": "images/massnawa.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "في أي سنة توفي العربي باطما",
@@ -257,7 +257,7 @@
     "type": "question",
     "file": "assets/a1.mp3",
     "image": "images/arbi.jpg",
-    "stage": "الثانية"
+    "stage": "الاولى"
   },
   {
     "question": "من هو صاحب أغنية مولد القمر",

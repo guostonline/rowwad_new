@@ -1,10 +1,9 @@
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
+import "package:quiz/Fonctions/MyFunctions.dart";
 
 Widget myProgressBar({double value, int question, String stage}) {
   return Padding(
@@ -20,9 +19,22 @@ Widget myProgressBar({double value, int question, String stage}) {
           .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
       center: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Text(
-          "السؤال $question من المرحلة  $stage",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+        child: Column(
+          children: [
+            Text(
+              "السؤال $question من المرحلة  $stage",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            Divider(
+              color: Colors.white,
+              indent: 10,
+              endIndent: 10,
+            ),
+            Text(
+              "معدل المرحلة $question المعدل العالم  $stage",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ],
         ),
       ),
     ),
@@ -36,15 +48,18 @@ Widget myQuestionImage({String question, String image}) {
     alignment: Alignment.bottomCenter,
     decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage("$image"), fit: BoxFit.fill)),
-    child: Text(
-      question,
-      style: TextStyle(
+    child: Container(
+      color: Colors.black.withOpacity(0.5),
+      child: Text(
+        question,
+        style: TextStyle(
           fontSize: 25,
           fontFamily: "Cairo",
           fontWeight: FontWeight.bold,
           color: Colors.white,
-          backgroundColor: Colors.black54),
-      textAlign: TextAlign.center,
+        ),
+        textAlign: TextAlign.center,
+      ),
     ),
   );
 }
@@ -79,9 +94,7 @@ Widget myQuestionText({String question}) {
 }
 
 Widget myAudioQuestion({String question, String audio}) {
-  AudioPlayer audioPlayer = AudioPlayer();
-  AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
-  audioCache.play(audio);
+  playAudio(audio);
   return Stack(
     children: <Widget>[
       Container(
@@ -103,7 +116,9 @@ Widget myAudioQuestion({String question, String audio}) {
       Align(
         alignment: Alignment(0.75, -0.2),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            playAudio(audio);
+          },
           color: Colors.transparent,
           icon: Icon(
             Icons.replay,

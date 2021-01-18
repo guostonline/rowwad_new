@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:quiz/Models/QuestionModel.dart';
+
+import 'MyFunctions.dart';
 
 class GetXFunctions extends GetxController {
   // Opacity level
@@ -87,10 +85,9 @@ class GetXFunctions extends GetxController {
   }
 
   checkFuction(context, int reponce) {
-    AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
-    AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
     Timer(Duration(seconds: 3), () {
       if (reponce == questions[questionIndex.value].bonReponce) {
+        playAudio("win.wav");
         bonReponce++;
         showDialogue(
           context,
@@ -98,12 +95,6 @@ class GetXFunctions extends GetxController {
           title: 'رائع جواب صحيح',
           description: questions[questionIndex.value].info,
         );
-        try {
-          // audioPlayer.play('winning.mp3');
-          audioCache.play('win.wav');
-        } catch (e) {
-          print(e);
-        }
       } else
         showDialogue(
           context,
@@ -111,43 +102,9 @@ class GetXFunctions extends GetxController {
           title: 'للاسف الجواب خاطئ',
           description: questions[questionIndex.value].info,
         );
-      try {
-        // audioPlayer.play('wrong.mp3');
-        audioCache.play('lost.wav');
-      } catch (e) {
-        print(e);
-      }
-    });
-  }
 
-  showDialogue(context, {String image, String title, String description}) {
-    showDialog(
-        context: context,
-        builder: (_) => AssetGiffyDialog(
-              image: Image(
-                image: AssetImage(image),
-                fit: BoxFit.cover,
-              ),
-              title: Text(
-                title,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              description: Text(description, textDirection: TextDirection.rtl),
-              entryAnimation: EntryAnimation.BOTTOM_RIGHT,
-              onlyOkButton: true,
-              buttonOkText: Text(
-                "السؤال التالي",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onOkButtonPressed: () {
-                increment();
-                inicialise();
-                Navigator.pop(context);
-              },
-            ));
+      // audioPlayer.play('wrong.mp3');
+      playAudio('lost.wav');
+    });
   }
 }
