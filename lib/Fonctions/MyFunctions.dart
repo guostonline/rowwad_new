@@ -56,7 +56,11 @@ playAudio(String audio) {
 } // function to listen to audio
 
 showDialogue(context,
-    {String image, String title, String description, bool isAnswerTrue}) {
+    {String image,
+    String title,
+    String description,
+    Function myFunction,
+    @required bool isQuestion}) {
   showDialog(
       context: context,
       builder: (_) => AssetGiffyDialog(
@@ -75,17 +79,92 @@ showDialogue(context,
             entryAnimation: EntryAnimation.BOTTOM_RIGHT,
             onlyOkButton: true,
             buttonOkText: Text(
-              "السؤال التالي",
+              isQuestion ? "السؤال التالي" : "المرحلة القادمة",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             onOkButtonPressed: () {
-              _controller.increment();
-              _controller.inicialise();
+              myFunction();
               Navigator.pop(context);
             },
           ));
 } // Message of answer
 
 double moyenOfStage(int question, int bonReponce) {
-  return (bonReponce.toDouble() / question.toDouble()) * 10;
+  if (question == 0 && bonReponce == 0) return 0;
+  double x = (bonReponce.toDouble() / question.toDouble()) * 10;
+  _controller.moyenStage.value = x;
+  return x;
+}
+
+messageGrade(context, String stage) {
+  switch (stage) {
+    case "الاولى":
+      {
+        showDialogue(
+          context,
+          image: "images/cup_winner1.jpg",
+          title: "مبروك وسام: المغاربي الحر",
+          description: "يمكنك الان المرور للمرحلة الثانية",
+          isQuestion: false,
+          myFunction: () => Navigator.pop(context),
+        );
+      }
+      break;
+    case "الثانية":
+      {
+        showDialogue(
+          context,
+          image: "images/cup_winner2.jpg",
+          title: "مبروك وسام: المستمع الراقي",
+          description: "يمكنك الان المرور للمرحلة الثانية",
+          isQuestion: false,
+          myFunction: () => Navigator.pop(context),
+        );
+      }
+      break;
+    case "الثالثة":
+      {
+        showDialogue(
+          context,
+          image: "images/cup_winner3.jpg",
+          title: "مبروك وسام: عاشق الاعنية المغربية",
+          description: "يمكنك الان المرور للمرحلة الثانية",
+          isQuestion: false,
+          myFunction: () => Navigator.pop(context),
+        );
+      }
+      break;
+    case "fail":
+      {
+        showDialogue(context,
+            image: "images/fail.png",
+            title: "للاسف لا يمكنك المرور للمرحلة القادمة",
+            description: "معدل أجوبتك اقل من 5/10. حاول من جديد فهذه مجرد لعبة",
+            isQuestion: false, myFunction: () {
+          Navigator.pop(context);
+        });
+      }
+      break;
+  }
+}
+
+bool upGradeStage(context, String stageOld, String stageNew) {
+  if (stageOld != stageNew) {
+    if (_controller.moyenStage.value >= 5.0) {
+      _controller.stage.value = stageNew;
+      _controller.remumberIndex.value = _controller.questionIndex.value;
+      _controller.questionIndexStage.value = 1;
+      _controller.bonReponceStage.value = 0;
+      _controller.remumberBonReponce.value = _controller.bonReponce.value;
+      messageGrade(context, stageNew);
+    } else {
+      _controller.questionIndex.value = _controller.remumberIndex.value;
+      _controller.stage.value =
+          _controller.questions[_controller.questionIndex.value].stage;
+      _controller.bonReponce.value = _controller.remumberBonReponce.value;
+      messageGrade(context, "fail");
+    }
+    return true;
+  }
+  return false;
 }

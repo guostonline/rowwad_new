@@ -5,38 +5,73 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
 import "package:quiz/Fonctions/MyFunctions.dart";
 
-Widget myProgressBar(
-    {double value,
-    int question,
-    String stage,
-    int bonReponce,
-    double globale}) {
-  return Padding(
+//GetXFunctions _controller = Get.put(GetXFunctions());
+Widget myProgressBarStage({
+  double value,
+  int question,
+  int bonReponce,
+  String stage,
+}) {
+  return Container(
+    // height: 100,
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: LiquidLinearProgressIndicator(
-      value: 0.5,
+      value: value,
       valueColor: AlwaysStoppedAnimation(Colors.blue),
       backgroundColor: Colors.grey,
       borderColor: Colors.white,
       borderWidth: 2.0,
       borderRadius: 20,
-      direction: Axis
-          .horizontal, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+      direction: Axis.horizontal,
+      center: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          children: [
+            AutoSizeText(
+              "السؤال $question",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            Divider(color: Colors.white),
+            AutoSizeText(
+              "أجوبة صحيحة $bonReponce من المرحلة $stage",
+              maxLines: 1,
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget myProgressBarGlobale({
+  double value,
+  int questionStage,
+  int bonReponceStage,
+  int questionGlobale,
+  int bonReponceGlobale,
+}) {
+  return Container(
+    // height: 100,
+    padding: EdgeInsets.symmetric(horizontal: 10),
+    child: LiquidLinearProgressIndicator(
+      value: value,
+      valueColor: AlwaysStoppedAnimation(Colors.blue),
+      backgroundColor: Colors.grey,
+      borderColor: Colors.white,
+      borderWidth: 2.0,
+      borderRadius: 20,
       center: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
             Text(
-              "الاجوبة الصحيحة $bonReponce من اصل ${question - 1}",
+              "معدل المرحلة : ${moyenOfStage(questionStage, bonReponceStage).toStringAsFixed(1)}",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            Divider(
-              color: Colors.white,
-              indent: 10,
-              endIndent: 10,
-            ),
-            AutoSizeText(
-              "معدل المرحلة $stage ${moyenOfStage(question - 1, bonReponce).toStringAsFixed(1)}/10 المعدل العالم  $globale",
+            Divider(color: Colors.white),
+            Text(
+              "المعدل العام : ${moyenOfStage(questionGlobale, bonReponceGlobale).toStringAsFixed(1)}",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ],
@@ -46,9 +81,11 @@ Widget myProgressBar(
   );
 }
 
-//${moyenOfStage(question, bonReponce).toStringAsFixed(1)}/10 المعدل العالم
+//              "معدل المرحلة $stage ${moyenOfStage(question - 1, bonReponce).toStringAsFixed(1)}/10 المعدل العالم  $globale",
 Widget myCircleProgressBar(int question, String stage) {
   return LiquidCircularProgressIndicator(
+    borderColor: Colors.white,
+    borderWidth: 2.0,
     center: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -133,8 +170,9 @@ Widget myAudioQuestion({String question, String audio}) {
           )),
         ),
       ),
-      Align(
-        alignment: Alignment(0.75, -0.2),
+      Positioned(
+        top: 80,
+        right: 45,
         child: IconButton(
           onPressed: () {
             playAudio(audio);
@@ -142,19 +180,20 @@ Widget myAudioQuestion({String question, String audio}) {
           color: Colors.transparent,
           icon: Icon(
             Icons.replay,
-            size: 40,
+            size: 45,
             color: Colors.blue,
           ),
         ),
       ),
-      Align(
-        alignment: Alignment(-0.75, -0.2),
+      Positioned(
+        top: 80,
+        left: 45,
         child: IconButton(
           onPressed: () {},
           color: Colors.transparent,
           icon: Icon(
             Icons.play_arrow,
-            size: 40,
+            size: 45,
             color: Colors.blue,
           ),
         ),

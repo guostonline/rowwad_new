@@ -36,70 +36,67 @@ class _QuestionPageState extends State<QuestionPage> {
                     fit: BoxFit.cover)),
             child: SafeArea(
                 child: Obx(
-              () => Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Row(
+              () => Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Row(
                       children: [
                         Flexible(
-                          flex: 4,
-                          child: myProgressBar(
-                              question: _controller.questionIndex.value + 1,
-                              stage: question[_controller.questionIndex.value]
-                                  .stage,
+                          child: myProgressBarGlobale(
                               value: 0.5,
-                              bonReponce: _controller.bonReponce.value,
-                              globale: 7.5),
+                              questionStage:
+                                  _controller.questionIndexStage.value - 1,
+                              bonReponceStage:
+                                  _controller.bonReponceStage.value,
+                              questionGlobale: _controller.questionIndex.value,
+                              bonReponceGlobale: _controller.bonReponce.value),
                         ),
                         Flexible(
-                          flex: 1,
-                          child: myCircleProgressBar(
-                              _controller.questionIndex.value + 1,
-                              question[_controller.questionIndex.value].stage),
-                        )
+                            child: myProgressBarStage(
+                                question: _controller.questionIndexStage.value,
+                                stage: _controller.stage.value,
+                                bonReponce: _controller.bonReponceStage.value,
+                                value: 0.5))
                       ],
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    flex: 6,
-                    child: selectWidget(
+                    selectWidget(
                         question[_controller.questionIndex.value].type),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    flex: 7,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          myButtonRaisen(
-                              context: context,
-                              text: question[_controller.questionIndex.value]
-                                  .reponce_1,
-                              question: 1),
-                          myButtonRaisen(
-                              context: context,
-                              text: question[_controller.questionIndex.value]
-                                  .reponce_2,
-                              question: 2),
-                          myButtonRaisen(
-                              context: context,
-                              text: question[_controller.questionIndex.value]
-                                  .reponce_3,
-                              question: 3),
-                          myButtonRaisen(
-                              context: context,
-                              text: question[_controller.questionIndex.value]
-                                  .reponce_4,
-                              question: 4),
-                        ],
+                    SizedBox(height: 10),
+                    Expanded(
+                      flex: 7,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            myButtonRaisen(
+                                context: context,
+                                text: question[_controller.questionIndex.value]
+                                    .reponce_1,
+                                question: 1),
+                            myButtonRaisen(
+                                context: context,
+                                text: question[_controller.questionIndex.value]
+                                    .reponce_2,
+                                question: 2),
+                            myButtonRaisen(
+                                context: context,
+                                text: question[_controller.questionIndex.value]
+                                    .reponce_3,
+                                question: 3),
+                            myButtonRaisen(
+                                context: context,
+                                text: question[_controller.questionIndex.value]
+                                    .reponce_4,
+                                question: 4),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )));
       },
