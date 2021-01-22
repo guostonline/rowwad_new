@@ -14,7 +14,7 @@ Widget myProgressBarStage({
 }) {
   return Container(
     // height: 100,
-    padding: EdgeInsets.symmetric(horizontal: 10),
+
     child: LiquidLinearProgressIndicator(
       value: value,
       valueColor: AlwaysStoppedAnimation(Colors.blue),
@@ -53,7 +53,7 @@ Widget myProgressBarGlobale({
 }) {
   return Container(
     // height: 100,
-    padding: EdgeInsets.symmetric(horizontal: 10),
+
     child: LiquidLinearProgressIndicator(
       value: value,
       valueColor: AlwaysStoppedAnimation(Colors.blue),
@@ -81,29 +81,14 @@ Widget myProgressBarGlobale({
   );
 }
 
-//              "معدل المرحلة $stage ${moyenOfStage(question - 1, bonReponce).toStringAsFixed(1)}/10 المعدل العالم  $globale",
-Widget myCircleProgressBar(int question, String stage) {
-  return LiquidCircularProgressIndicator(
-    borderColor: Colors.white,
-    borderWidth: 2.0,
-    center: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        AutoSizeText("$question",
-            minFontSize: 22, style: TextStyle(color: Colors.white)),
-        Divider(color: Colors.white, indent: 5, endIndent: 5),
-        AutoSizeText(" $stage", style: TextStyle(color: Colors.white))
-      ],
-    ),
-  );
-}
-
 Widget myQuestionImage({String question, String image}) {
   return Container(
     width: double.infinity,
     height: 250,
     alignment: Alignment.bottomCenter,
     decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white, width: 2),
         image: DecorationImage(image: AssetImage("$image"), fit: BoxFit.fill)),
     child: Container(
       color: Colors.black.withOpacity(0.5),

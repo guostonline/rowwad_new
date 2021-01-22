@@ -135,15 +135,14 @@ messageGrade(context, String stage) {
       }
       break;
     case "fail":
-      {
-        showDialogue(context,
-            image: "images/fail.png",
-            title: "للاسف لا يمكنك المرور للمرحلة القادمة",
-            description: "معدل أجوبتك اقل من 5/10. حاول من جديد فهذه مجرد لعبة",
-            isQuestion: false, myFunction: () {
-          Navigator.pop(context);
-        });
-      }
+      showDialogue(
+        context,
+        image: "images/fail.png",
+        title: "للاسف لا يمكنك المرور للمرحلة القادمة",
+        description: "معدل أجوبتك اقل من 5/10. حاول من جديد فهذه مجرد لعبة",
+        isQuestion: false,
+        myFunction: () => Navigator.pop(context),
+      );
       break;
   }
 }

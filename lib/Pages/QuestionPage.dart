@@ -30,6 +30,7 @@ class _QuestionPageState extends State<QuestionPage> {
         _controller.questions = question;
         return Container(
             height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("images/background.png"),
@@ -39,13 +40,13 @@ class _QuestionPageState extends State<QuestionPage> {
               () => Expanded(
                 flex: 1,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(height: 10),
                     Row(
                       children: [
-                        Flexible(
+                        Expanded(
                           child: myProgressBarGlobale(
-                              value: 0.5,
+                              value: 0.25,
                               questionStage:
                                   _controller.questionIndexStage.value - 1,
                               bonReponceStage:
@@ -53,21 +54,22 @@ class _QuestionPageState extends State<QuestionPage> {
                               questionGlobale: _controller.questionIndex.value,
                               bonReponceGlobale: _controller.bonReponce.value),
                         ),
-                        Flexible(
+                        SizedBox(width: 5),
+                        Expanded(
                             child: myProgressBarStage(
                                 question: _controller.questionIndexStage.value,
                                 stage: _controller.stage.value,
                                 bonReponce: _controller.bonReponceStage.value,
-                                value: 0.5))
+                                value: 0.5)),
                       ],
                     ),
+                    SizedBox(height: 15),
                     selectWidget(
                         question[_controller.questionIndex.value].type),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     Expanded(
                       flex: 7,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [

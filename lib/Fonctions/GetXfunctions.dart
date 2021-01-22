@@ -16,7 +16,7 @@ class GetXFunctions extends GetxController {
   // Colors level
   var colorButton = Colors.blue.withOpacity(0.5).obs;
 
-  RxInt questionIndex = 0.obs;
+  RxInt questionIndex = 19.obs;
   RxInt questionIndexStage = 1.obs;
 
   RxInt bonReponce = 0.obs;
@@ -115,13 +115,14 @@ class GetXFunctions extends GetxController {
               bonReponceStage.value = 0;
               remumberBonReponce.value = bonReponce.value;
               inicialise();
+            } else {
+              questionIndex.value = remumberIndex.value;
+              questionIndexStage.value = 1;
+              bonReponce.value = remumberBonReponce.value;
+              bonReponceStage.value = 0;
+              inicialise();
+              messageGrade(context, "fail");
             }
-            messageGrade(context, "fail");
-            questionIndex.value = remumberIndex.value;
-            questionIndexStage.value = 1;
-            bonReponce.value = remumberBonReponce.value;
-            bonReponceStage.value = 0;
-            inicialise();
           } else {
             bonReponce++;
             questionIndex++;
@@ -150,13 +151,15 @@ class GetXFunctions extends GetxController {
               bonReponceStage.value = 0;
               remumberBonReponce.value = bonReponce.value;
               inicialise();
+            } else {
+              print('fail');
+              messageGrade(context, "fail");
+              questionIndex.value = remumberIndex.value;
+              questionIndexStage.value = 1;
+              bonReponce.value = remumberBonReponce.value;
+              bonReponceStage.value = 0;
+              inicialise();
             }
-            messageGrade(context, "fail");
-            questionIndex.value = remumberIndex.value;
-            questionIndexStage.value = 1;
-            bonReponce.value = remumberBonReponce.value;
-            bonReponceStage.value = 0;
-            inicialise();
           } else {
             questionIndex++;
             questionIndexStage++;
