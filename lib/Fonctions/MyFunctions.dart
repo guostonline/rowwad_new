@@ -71,7 +71,8 @@ showDialogue(context,
             ),
             title: Text(
               title,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textDirection: TextDirection.rtl,
             ),
             description: Text(description,
                 style: TextStyle(fontSize: 18),
@@ -145,25 +146,4 @@ messageGrade(context, String stage) {
       );
       break;
   }
-}
-
-bool upGradeStage(context, String stageOld, String stageNew) {
-  if (stageOld != stageNew) {
-    if (_controller.moyenStage.value >= 5.0) {
-      _controller.stage.value = stageNew;
-      _controller.remumberIndex.value = _controller.questionIndex.value;
-      _controller.questionIndexStage.value = 1;
-      _controller.bonReponceStage.value = 0;
-      _controller.remumberBonReponce.value = _controller.bonReponce.value;
-      messageGrade(context, stageNew);
-    } else {
-      _controller.questionIndex.value = _controller.remumberIndex.value;
-      _controller.stage.value =
-          _controller.questions[_controller.questionIndex.value].stage;
-      _controller.bonReponce.value = _controller.remumberBonReponce.value;
-      messageGrade(context, "fail");
-    }
-    return true;
-  }
-  return false;
 }

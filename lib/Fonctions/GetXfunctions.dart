@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiz/Models/QuestionModel.dart';
-
-import 'MyFunctions.dart';
 import 'Verification.dart';
+import 'MyFunctions.dart';
 
 class GetXFunctions extends GetxController {
   // Opacity level
@@ -16,7 +15,7 @@ class GetXFunctions extends GetxController {
   // Colors level
   var colorButton = Colors.blue.withOpacity(0.5).obs;
 
-  RxInt questionIndex = 19.obs;
+  RxInt questionIndex = 0.obs;
   RxInt questionIndexStage = 1.obs;
 
   RxInt bonReponce = 0.obs;
@@ -93,80 +92,71 @@ class GetXFunctions extends GetxController {
   }
 
   checkFuction(context, int userReponce) {
+    // todo: work here
     Timer(Duration(seconds: 1), () {
-      if (Verification().goodResponce(
-          userReponce, questions[questionIndex.value].bonReponce)) {
-        playAudio("win.wav");
-        showDialogue(context,
-            image: questions[questionIndex.value].image,
-            title: 'رائع جواب صحيح',
-            description: questions[questionIndex.value].info,
-            isQuestion: true, myFunction: () {
-          if (Verification().newStageVerification(
-              stage.value, questions[questionIndex.value].stage)) {
-            if (Verification().moyenIsMoreThan5(
-                questionIndexStage.value, bonReponceStage.value)) {
-              messageGrade(context, questions[questionIndex.value].stage);
-              bonReponce++;
-              questionIndex++;
-              stage.value = questions[questionIndex.value].stage;
-              remumberIndex.value = questionIndex.value;
-              questionIndexStage.value = 1;
-              bonReponceStage.value = 0;
-              remumberBonReponce.value = bonReponce.value;
-              inicialise();
-            } else {
-              questionIndex.value = remumberIndex.value;
-              questionIndexStage.value = 1;
-              bonReponce.value = remumberBonReponce.value;
-              bonReponceStage.value = 0;
-              inicialise();
-              messageGrade(context, "fail");
-            }
-          } else {
-            bonReponce++;
-            questionIndex++;
-            questionIndexStage++;
-            bonReponceStage++;
-            inicialise();
-          }
-        });
-      } else {
-        playAudio('lost.wav');
-        showDialogue(context,
-            image: questions[questionIndex.value].image,
-            title: 'للاسف الجواب خاطئ',
-            description: questions[questionIndex.value].info,
-            isQuestion: true, myFunction: () {
-          if (Verification().newStageVerification(
-              stage.value, questions[questionIndex.value].stage)) {
-            if (Verification().moyenIsMoreThan5(
-                questionIndexStage.value, bonReponceStage.value)) {
-              messageGrade(context, questions[questionIndex.value].stage);
-              bonReponce++;
-              questionIndex++;
-              stage.value = questions[questionIndex.value].stage;
-              remumberIndex.value = questionIndex.value;
-              questionIndexStage.value = 1;
-              bonReponceStage.value = 0;
-              remumberBonReponce.value = bonReponce.value;
-              inicialise();
-            } else {
-              print('fail');
-              messageGrade(context, "fail");
-              questionIndex.value = remumberIndex.value;
-              questionIndexStage.value = 1;
-              bonReponce.value = remumberBonReponce.value;
-              bonReponceStage.value = 0;
-              inicialise();
-            }
-          } else {
-            questionIndex++;
-            questionIndexStage++;
-            inicialise();
-          }
-        });
+      Verification().goodResponce(userReponce, questions[questionIndex.value].bonReponce)?
+        goodReponceFunction(context, true)
+      : goodReponceFunction(context, false);
+      }
+      if (Verification().newStageVerification(
+          stage.value, questions[questionIndex.value].stage)) {
+        Verification().moyenIsMoreThan5(
+                questionIndexStage.value, bonReponceStage.value)
+            ? newStageFunction(context, true)
+            : newStageFunction(context, false);
       }
     });
+  }
+
+  goodReponceFunction(context, bool isGoodReponce) {
+    if (isGoodReponce) {
+      playAudio("win.wav");
+      showDialogue(context,
+          isQuestion: true,
+          image: questions[questionIndex.value].image,
+          title: "ممتاز جواب صحيح",
+          description: questions[questionIndex.value].info, myFunction: () {
+        bonReponce++;
+        questionIndex++;
+        questionIndexStage++;
+        bonReponceStage++;
+        inicialise();
+        print("good answer $bonReponce $questionIndex");
+      });
+    } else {
+      playAudio("lost.wav");
+      showDialogue(context,
+          isQuestion: true,
+          image: questions[questionIndex.value].image,
+          title: "للأسف الجواب خاطئ",
+          description: questions[questionIndex.value].info, myFunction: () {
+        questionIndex++;
+        questionIndexStage++;
+
+        inicialise();
+        print("bed answer $bonReponce $questionIndex");
+      });
+    }
+  }
+
+  newStageFunction(context, bool isMoyen5) {
+    if (isMoyen5) {
+      messageGrade(context, questions[questionIndex.value].stage);
+      bonReponce++;
+      questionIndex++;
+      stage.value = questions[questionIndex.value].stage;
+      remumberIndex.value = questionIndex.value;
+      questionIndexStage.value = 1;
+      bonReponceStage.value = 0;
+      remumberBonReponce.value = bonReponce.value;
+      inicialise();
+    } else {
+      messageGrade(context, "fail");
+      questionIndex.value = remumberIndex.value;
+      questionIndexStage.value = 1;
+      bonReponce.value = remumberBonReponce.value;
+      bonReponceStage.value = 0;
+      inicialise();
+    }
   }
 }
