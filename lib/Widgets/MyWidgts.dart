@@ -6,43 +6,6 @@ import 'package:quiz/Fonctions/GetXfunctions.dart';
 import "package:quiz/Fonctions/MyFunctions.dart";
 
 //GetXFunctions _controller = Get.put(GetXFunctions());
-Widget myProgressBarStage({
-  double value,
-  int question,
-  int bonReponce,
-  String stage,
-}) {
-  return Container(
-    // height: 100,
-
-    child: LiquidLinearProgressIndicator(
-      value: value,
-      valueColor: AlwaysStoppedAnimation(Colors.blue),
-      backgroundColor: Colors.grey,
-      borderColor: Colors.white,
-      borderWidth: 2.0,
-      borderRadius: 20,
-      direction: Axis.horizontal,
-      center: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: [
-            AutoSizeText(
-              "السؤال $question",
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            Divider(color: Colors.white),
-            AutoSizeText(
-              "أجوبة صحيحة $bonReponce من المرحلة $stage",
-              maxLines: 1,
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
 
 Widget myProgressBarGlobale({
   double value,

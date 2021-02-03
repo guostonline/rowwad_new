@@ -94,16 +94,19 @@ class GetXFunctions extends GetxController {
   checkFuction(context, int userReponce) {
     // todo: work here
     Timer(Duration(seconds: 1), () {
-      Verification().goodResponce(userReponce, questions[questionIndex.value].bonReponce)?
-        goodReponceFunction(context, true)
-      : goodReponceFunction(context, false);
-      }
-      if (Verification().newStageVerification(
+      if (Verification.goodResponce(
+          userReponce, questions[questionIndex.value].bonReponce))
+        goodReponceFunction(context, true);
+      else
+        goodReponceFunction(context, false);
+
+      if (Verification.newStageVerification(
           stage.value, questions[questionIndex.value].stage)) {
-        Verification().moyenIsMoreThan5(
-                questionIndexStage.value, bonReponceStage.value)
-            ? newStageFunction(context, true)
-            : newStageFunction(context, false);
+        if (Verification.moyenIsMoreThan5(
+            questionIndexStage.value, bonReponceStage.value)) {
+          newStageFunction(context, true);
+        } else
+          newStageFunction(context, false);
       }
     });
   }

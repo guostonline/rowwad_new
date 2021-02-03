@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
 import 'package:quiz/Fonctions/MyFunctions.dart';
 import 'package:quiz/Models/QuestionModel.dart';
+import 'package:quiz/Widgets/HeaderWidget.dart';
 import 'package:quiz/Widgets/MyWidgts.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -43,21 +44,20 @@ class _QuestionPageState extends State<QuestionPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: myProgressBarGlobale(
-                            value: 0.25,
-                            questionStage:
-                                _controller.questionIndexStage.value - 1,
-                            bonReponceStage: _controller.bonReponceStage.value,
-                            questionGlobale: _controller.questionIndex.value,
-                            bonReponceGlobale: _controller.bonReponce.value),
+                        child: circleProgress(
+                            progressValue: 0.5,
+                            title: "المعدل",
+                            desc: moyenOfStage(
+                                    _controller.questionIndexStage.value,
+                                    _controller.bonReponceStage.value)
+                                .toString()),
                       ),
-                      SizedBox(width: 5),
                       Expanded(
-                          child: myProgressBarStage(
-                              question: _controller.questionIndexStage.value,
-                              stage: _controller.stage.value,
-                              bonReponce: _controller.bonReponceStage.value,
-                              value: 0.5)),
+                        child: normalProgress(
+                            progressValue: 0.5,
+                            title:
+                                "الاجوبة الصحيحة : ${_controller.bonReponceStage.value} المرحلة : ${_controller.stage.value}"),
+                      )
                     ],
                   ),
                   SizedBox(height: 15),
