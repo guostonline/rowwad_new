@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
@@ -45,19 +47,40 @@ class _QuestionPageState extends State<QuestionPage> {
                     children: [
                       Expanded(
                         child: circleProgress(
-                            progressValue: 0.5,
+                            progressValue: moyenOfStage(
+                                _controller.questionIndexStage.value,
+                                _controller.bonReponceStage.value,
+                                true),
                             title: "المعدل",
                             desc: moyenOfStage(
                                     _controller.questionIndexStage.value,
-                                    _controller.bonReponceStage.value)
+                                    _controller.bonReponceStage.value,
+                                    false)
+                                .toStringAsFixed(1)),
+                      ),
+                      SizedBox(width: 5),
+                      Column(
+                        children: [
+                          normalProgress(
+                              progressValue: 0.5,
+                              title:
+                                  "الاجوبة الصحيحة : ${_controller.bonReponceStage.value} المرحلة : ${_controller.stage.value}"),
+                          SizedBox(height: 5),
+                          normalProgress(
+                              progressValue: 0.5,
+                              title:
+                                  "الاجوبة الصحيحة : ${_controller.bonReponceStage.value} المرحلة : ${_controller.stage.value}"),
+                        ],
+                      ),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: circleProgress(
+                            progressValue: moyenOfStage(
+                                _controller.questionIndexStage.value, 10, true),
+                            title: "السؤال",
+                            desc: _controller.questionIndexStage.value
                                 .toString()),
                       ),
-                      Expanded(
-                        child: normalProgress(
-                            progressValue: 0.5,
-                            title:
-                                "الاجوبة الصحيحة : ${_controller.bonReponceStage.value} المرحلة : ${_controller.stage.value}"),
-                      )
                     ],
                   ),
                   SizedBox(height: 15),

@@ -7,11 +7,15 @@ Widget circleProgress({double progressValue, String title, String desc}) {
     height: 100,
     child: LiquidCircularProgressIndicator(
       value: progressValue,
-      center: Column(
-        children: [
-          AutoSizeText(title, maxLines: 1),
-          AutoSizeText(desc, maxLines: 1),
-        ],
+      center: DefaultTextStyle(
+        style: TextStyle(color: Colors.white),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            AutoSizeText(title, maxLines: 1, minFontSize: 12),
+            AutoSizeText(desc, maxLines: 1, minFontSize: 30),
+          ],
+        ),
       ),
       backgroundColor: Colors.transparent,
       borderWidth: 2,
@@ -25,7 +29,8 @@ Widget normalProgress({double progressValue, String title}) {
     height: 50,
     child: LiquidLinearProgressIndicator(
       value: progressValue,
-      center: AutoSizeText(title, maxLines: 1),
+      center: AutoSizeText(title,
+          style: TextStyle(color: Colors.white), maxLines: 1),
       backgroundColor: Colors.transparent,
       borderRadius: 20,
       borderWidth: 2,

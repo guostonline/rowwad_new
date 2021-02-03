@@ -90,8 +90,9 @@ showDialogue(context,
           ));
 } // Message of answer
 
-double moyenOfStage(int question, int bonReponce) {
+double moyenOfStage(int question, int bonReponce, bool isProgress) {
   if (question == 0 && bonReponce == 0) return 0;
+  if (isProgress) return (bonReponce.toDouble() / question.toDouble());
   double x = (bonReponce.toDouble() / question.toDouble()) * 10;
   _controller.moyenStage.value = x;
   return x;

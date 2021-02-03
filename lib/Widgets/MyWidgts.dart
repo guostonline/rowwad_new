@@ -7,43 +7,6 @@ import "package:quiz/Fonctions/MyFunctions.dart";
 
 //GetXFunctions _controller = Get.put(GetXFunctions());
 
-Widget myProgressBarGlobale({
-  double value,
-  int questionStage,
-  int bonReponceStage,
-  int questionGlobale,
-  int bonReponceGlobale,
-}) {
-  return Container(
-    // height: 100,
-
-    child: LiquidLinearProgressIndicator(
-      value: value,
-      valueColor: AlwaysStoppedAnimation(Colors.blue),
-      backgroundColor: Colors.grey,
-      borderColor: Colors.white,
-      borderWidth: 2.0,
-      borderRadius: 20,
-      center: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: [
-            Text(
-              "معدل المرحلة : ${moyenOfStage(questionStage, bonReponceStage).toStringAsFixed(1)}",
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            Divider(color: Colors.white),
-            Text(
-              "المعدل العام : ${moyenOfStage(questionGlobale, bonReponceGlobale).toStringAsFixed(1)}",
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
 Widget myQuestionImage({String question, String image}) {
   return Container(
     width: double.infinity,
