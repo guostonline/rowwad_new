@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
 import "package:quiz/Fonctions/MyFunctions.dart";
+import 'package:quiz/Fonctions/SaveInformation.dart';
 
 //GetXFunctions _controller = Get.put(GetXFunctions());
 
@@ -138,6 +139,7 @@ Widget myButtonRaisen({context, String text, int question}) {
               _controller.buttonsVisibility(question);
               _controller.colorButton.value = Colors.green;
               _controller.checkFuction(context, question);
+              saveInformation("questionIndex", _controller.questionIndex.value);
             }),
       ),
     ),

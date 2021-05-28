@@ -23,14 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  auto_size_text: ^2.1.0
-  cupertino_icons: ^1.0.0
-  get: ^3.24.0
-  google_fonts: ^1.1.1
-  google_fonts_arabic: ^1.1.7
-  liquid_progress_indicator: ^0.3.2
-  audioplayers: ^0.17.2
-  blinking_text: ^0.0.4+1
+  auto_size_text: 
+  cupertino_icons: 
+  get: 
+  get_storage:
+  google_fonts: 
+  google_fonts_arabic: 
+  liquid_progress_indicator:
+  audioplayers: 
+  blinking_text: 
 
   giffy_dialog: any
 

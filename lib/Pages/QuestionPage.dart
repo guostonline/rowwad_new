@@ -1,9 +1,9 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:quiz/Fonctions/GetXfunctions.dart';
 import 'package:quiz/Fonctions/MyFunctions.dart';
+import 'package:quiz/Fonctions/SaveInformation.dart';
 import 'package:quiz/Models/QuestionModel.dart';
 import 'package:quiz/Widgets/HeaderWidget.dart';
 import 'package:quiz/Widgets/MyWidgts.dart';
@@ -20,6 +20,17 @@ int questionIndex = _controller.questionIndex.value;
 
 class _QuestionPageState extends State<QuestionPage> {
   List data;
+  var box = GetStorage();
+  @override
+  void initState() {
+    super.initState();
+    print(readInformation("questionIndex"));
+    if (readInformation("questionIndex") != null) {
+      _controller.questionIndex.value = readInformation("questionIndex") + 1;
+    } else
+      _controller.questionIndex.value = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
